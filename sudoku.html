@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Sudoku</title>
+	<style type="text/css">
+		.cell {
+			width: 35px;
+			height: 35px;
+			font-size: 30px;
+			text-align: center;
+
+		}
+		.error {
+			background-color: #ec979796;	
+		}
+	</style>
+</head>
+<body>
+	<table id="box">
+		<tr class="row">
+			<td><input value="3" disabled class="cell"></td>
+			<td><input value="1" disabled class="cell"></td>
+			<td><input value="2" disabled class="cell"></td>
+			<td><input maxlength="1" class="cell"></td>
+			<td><input value="9" disabled class="cell"></td>
+			<td><input value="5" disabled class="cell"></td>
+			<td><input maxlength="1" class="cell"></td>
+			<td><input value="7" disabled class="cell"></td>
+			<td><input value="6" disabled class="cell"></td>
+		</tr>
+		<tr class="row">
+			<td><input value="5" disabled class="cell"></td>
+			<td><input maxlength="1" class="cell"></td>
+			<td><input value="9" disabled class="cell"></td>
+			<td><input value="1" disabled class="cell"></td>
+			<td><input maxlength="1" class="cell"></td>
+			<td><input value="7" disabled class="cell"></td>
+			<td><input maxlength="1" class="cell"></td>
+			<td><input value="8" disabled class="cell"></td>
+			<td><input value="2" disabled class="cell"></td>
+		</tr>
+		<tr class="row">
+			<td><input value="4" disabled class="cell"></td>
+			<td><input maxlength="1" class="cell"></td>
+			<td><input value="7" disabled class="cell"></td>
+			<td><input value="2" disabled class="cell"></td>
+			<td><input value="6" disabled class="cell"></td>
+			<td><input value="3" disabled class="cell"></td>
+			<td><input value="5" disabled class="cell"></td>
+			<td><input maxlength="1" class="cell"></td>
+			<td><input maxlength="1" class="cell"></td>
+		</tr>
+		<tr class="row">
+			<td><input value="9" disabled class="cell"></td>
+			<td><input maxlength="1" class="cell"></td>
+			<td><input maxlength="1" class="cell"></td>
+			<td><input value="7" disabled class="cell"></td>
+			<td><input maxlength="1" class="cell"></td>
+			<td><input maxlength="1" class="cell"></td>
+			<td><input value="2" disabled class="cell"></td>
+			<td><input value="4" disabled class="cell"></td>
+			<td><input maxlength="1" class="cell"></td>
+		</tr>
+		<tr class="row">
+			<td><input maxlength="1" class="cell"></td>
+			<td><input value="2" disabled class="cell"></td>
+			<td><input value="8" disabled class="cell"></td>
+			<td><input maxlength="1" class="cell"></td>
+			<td><input value="1" disabled class="cell"></td>
+			<td><input maxlength="1" class="cell"></td>
+			<td><input maxlength="1" class="cell"></td>
+			<td><input value="9" disabled class="cell"></td>
+			<td><input value="3" disabled class="cell"></td>
+		</tr>
+		<tr class="row">
+			<td><input maxlength="1" class="cell"></td>
+			<td><input value="3" disabled class="cell"></td>
+			<td><input maxlength="1" class="cell"></td>
+			<td><input value="9" disabled class="cell"></td>
+			<td><input value="8" disabled class="cell"></td>
+			<td><input value="2" disabled class="cell"></td>
+			<td><input maxlength="1" class="cell"></td>
+			<td><input value="5" disabled class="cell"></td>
+			<td><input value="7" disabled class="cell"></td>
+		</tr>
+		<tr class="row">
+			<td><input maxlength="1" class="cell"></td>
+			<td><input value="4" disabled class="cell"></td>
+			<td><input value="5" disabled class="cell"></td>
+			<td><input value="6" disabled class="cell"></td>
+			<td><input maxlength="1" class="cell"></td>
+			<td><input maxlength="1" class="cell"></td>
+			<td><input maxlength="1" class="cell"></td>
+			<td><input value="3" disabled class="cell"></td>
+			<td><input value="1" disabled class="cell"></td>
+		</tr>
+		<tr class="row">
+			<td><input value="1" disabled class="cell"></td>
+			<td><input value="7" disabled class="cell"></td>
+			<td><input maxlength="1" class="cell"></td>
+			<td><input value="3" disabled class="cell"></td>
+			<td><input value="5" disabled class="cell"></td>
+			<td><input value="8" disabled class="cell"></td>
+			<td><input value="9" disabled class="cell"></td>
+			<td><input maxlength="1" class="cell"></td>
+			<td><input value="4" disabled class="cell"></td>
+		</tr>
+		<tr class="row">
+			<td><input value="8" disabled class="cell"></td>
+			<td><input maxlength="1" class="cell"></td>
+			<td><input value="3" disabled class="cell"></td>
+			<td><input value="4" disabled class="cell"></td>
+			<td><input value="2" disabled class="cell"></td>
+			<td><input maxlength="1" class="cell"></td>
+			<td><input value="7" disabled class="cell"></td>
+			<td><input maxlength="1" class="cell"></td>
+			<td><input value="5" disabled class="cell"></td>
+		</tr>
+	</table>
+	<div>
+		<button id='check'>Проверить</button>
+	</div>
+
+	<script src="script.js"></script>
+</body>
+</html>
