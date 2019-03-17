@@ -1,0 +1,51 @@
+div[class^="row"]{
+	display:  flex;
+}
+
+.container {
+	display: flex;
+}
+
+.quad {
+	margin: 2px;
+	border: 1px solid #887b7b
+}
+
+.info{
+	margin: 15px;
+}
+
+.alert{
+	transition: 2s;
+	padding: 5px;
+	max-width: 200px;
+}
+
+.check__button{
+	margin-bottom: 15px;
+}
+
+.quad:nth-child(even){
+}
+
+.cell {
+	width: 35px;
+	height: 35px;
+	font-size: 30px;
+	text-align: center;
+}
+
+.error {
+	border: 2px solid #de5757;
+	background-color: #f58b8b;
+}
+
+.correct {
+	border: 2px solid #5bad77;
+	background-color: #8fe4ac;	
+}
+
+@keyframes animationShow{
+	from { opacity: 0 }
+	to { opacity: 1};
+}
