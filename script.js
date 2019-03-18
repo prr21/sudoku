@@ -2,7 +2,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	var quads = document.getElementsByClassName('quad'),
 		size = quads.length,
-		nums = new RegExp(`[0-${size}]`),
+		numRegEx = new RegExp(`[1-${size}]`),
 		box = document.getElementById('box'),
 		check = document.getElementById('check'),
 		infoTab = document.getElementsByClassName('alert')[0];
@@ -11,7 +11,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 		if (e.target.tagName == 'INPUT') {
 
-			if (!nums.test(+e.key)) {
+			if (!numRegEx.test(+e.key)) {
 				showAlert('Вводите только цифры, от 1 до ' + size);
 				check.attributes;
 				e.target.classList.add('error');
@@ -31,6 +31,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	check.onclick = function() {
 
+		if ( !validNums() ) return;
+
 		var result = checkRow();
 
 		if( result === true){
@@ -49,12 +51,6 @@ window.addEventListener('DOMContentLoaded', () => {
 					row = [];
 
 			for(let j = 0; j < cells.length; j++){
-
-				if ( !nums.test( +cells[j].value) || +cells[j].value > size ) {
-					cells[j].classList.add('error');
-
-					return 'Заполните все поля от 1 до ' + size;
-				}
 
 				row.push( +cells[j].value );
 
@@ -76,5 +72,22 @@ window.addEventListener('DOMContentLoaded', () => {
 			}
 		}
 		return true;
+	}
+
+	function validNums(){
+		let cells = document.querySelectorAll('.cell'),
+			errors = '';
+
+		cells.forEach( (num, i) => {
+
+			if ( !numRegEx.test( +num.value) || +num.value > size ) {
+
+				cells[i].classList.add('error');
+				errors = 'Заполните все поля от 1 до ' + size;
+				return;
+			}
+		});
+		showAlert(errors)
+		return false
 	}
 })
