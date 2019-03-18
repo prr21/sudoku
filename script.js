@@ -31,14 +31,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	check.onclick = function() {
 
-		if ( !validNums() ) return;
+		// if ( !validNums() ) return;
 
-		var result = checkRow();
-
-		if( result === true){
+		if( /*checkRow() && */checkQuad() ){
 			showAlert('ВЫ ОБОССАЛИ ЭТУ ИГРУ!', 'successful');
 
-		} else showAlert('Ошибка: <br>' + result);
+		} else showAlert('К сожалению, судоку решено неверно');
 
 	}
 
@@ -55,12 +53,27 @@ window.addEventListener('DOMContentLoaded', () => {
 				row.push( +cells[j].value );
 
 				if (row.length >= size) {
-					if ( !findSameNums(row) ) return 'Судоку решено неверно';
+					if ( !findSameNums(row) ) return false;
 					row = [];
 				}
 			}
 		}
 		return true
+	}
+
+	// Проверка чисел в каждом квадрате
+	function checkQuad(){
+		let cells = document.querySelectorAll('.cell'),
+			row = [];
+
+		for(let i = 0; i < cells.length; i++){
+			row.push( +cells[i].value );
+
+			if (row.length >= size) {
+				if ( !findSameNums(row) ) return false;
+				row = [];
+			}
+		}
 	}
 
 	// Поиск одинаковых цифр в рядах
@@ -87,6 +100,7 @@ window.addEventListener('DOMContentLoaded', () => {
 				return;
 			}
 		});
+		// не будет выводит тру
 		showAlert(errors)
 		return false
 	}
