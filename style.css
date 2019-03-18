@@ -19,6 +19,7 @@ div[class^="row"]{
 	transition: 2s;
 	padding: 5px;
 	max-width: 200px;
+	animation: animationShow 1s ease-out 0s 1;
 }
 
 .check__button{
@@ -40,7 +41,7 @@ div[class^="row"]{
 	background-color: #f58b8b;
 }
 
-.correct {
+.successful {
 	border: 2px solid #5bad77;
 	background-color: #8fe4ac;	
 }
