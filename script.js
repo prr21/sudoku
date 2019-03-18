@@ -1,79 +1,80 @@
-var num = /^[1-9]/,
-	size = 0,
-	valid = false,
-	box = document.getElementById('box'),
-	check = document.getElementById('check'),
-	infoTab = document.getElementsByClassName('alert')[0];
+window.addEventListener('DOMContentLoaded', () => {
 
-box.addEventListener('keypress', function(e){
+	var quads = document.getElementsByClassName('quad'),
+		size = quads.length,
+		nums = new RegExp(`[0-${size}]`),
+		box = document.getElementById('box'),
+		check = document.getElementById('check'),
+		infoTab = document.getElementsByClassName('alert')[0];
 
-	if (e.target.tagName == 'INPUT') {
+	box.addEventListener('keypress', function(e){
 
-		if (!num.test(+e.key)) {
-			showAlert('Вводите только цифры, от 1 до 9', 'error');
-			check.attributes;
-			e.target.classList.add('error');
-			valid = false;
+		if (e.target.tagName == 'INPUT') {
 
-		} else{
-			e.target.classList.remove('error');
-			infoTab.style.opacity = '0';
-			valid = true;
-		}
-	}
-});
+			if (!nums.test(+e.key)) {
+				showAlert('Вводите только цифры, от 1 до ' + size);
+				check.attributes;
+				e.target.classList.add('error');
 
-function showAlert(text, status){
-	infoTab.style.animation = 'animationShow 2s ease-out 0s 1'
-	infoTab.classList.add(status);
-	infoTab.textContent = text;
-}
-
-check.onclick = function() {
-
-	if (valid) return showAlert('Заполните все поля как нужно', 'error');
-
-	size = document.getElementsByClassName('quad').length;
-
-	if( checkRow() ){
-		showAlert('ВЫ ОБОССАЛИ ЭТУ ИГРУ!', 'correct');
-
-	} else showAlert('Задача решена неверно', 'error');
-
-}
-
-function checkRow(){
-	let amountRows = Math.sqrt(size);
-	for(let i = 0; i < amountRows; i++){
-			let cells = document.querySelectorAll(`.row-of-quads .row-${i} .cell`),
-				row = [];
-
-		for(let j = 0; j < cells.length; j++){
-
-			if ( !num.test(+cells[j].value) ) {
-				cells[j].classList.add('error');
-				showAlert('Заполните все поля', 'error');
-				return;
-			}
-
-			row.push( +cells[j].value );
-
-			if (row.length >= size) {
-				if ( !findSameNums(row) ) return false;
-				row = [];
+			} else {
+				e.target.classList.remove('error');
+				infoTab.style.opacity = '0';
 			}
 		}
+	});
+
+	function showAlert(text, status = 'error'){
+		infoTab.style.opacity = '1'
+		infoTab.classList.add(status);
+		infoTab.innerHTML = text;
 	}
-	return true
-}
 
-// Поиск одинаковых цифр в рядах
-function findSameNums(row){
-	for(let i = 0; i < row.length; i++){
+	check.onclick = function() {
 
-		if( row.indexOf(row[i], i+1) != -1 ) {
-			return false;
+		var result = checkRow();
+
+		if( result === true){
+			showAlert('ВЫ ОБОССАЛИ ЭТУ ИГРУ!', 'successful');
+
+		} else showAlert('Ошибка: <br>' + result);
+
+	}
+
+	// Проверка горизонтальных рядов
+	function checkRow(){
+		let amountRows = Math.sqrt(size);
+
+		for(let i = 0; i < amountRows; i++){
+				let cells = document.querySelectorAll(`.row-of-quads .row-${i} .cell`),
+					row = [];
+
+			for(let j = 0; j < cells.length; j++){
+
+				if ( !nums.test( +cells[j].value) || +cells[j].value > size ) {
+					cells[j].classList.add('error');
+
+					return 'Заполните все поля от 1 до ' + size;
+				}
+
+				row.push( +cells[j].value );
+
+				if (row.length >= size) {
+					if ( !findSameNums(row) ) return 'Судоку решено неверно';
+					row = [];
+				}
+			}
 		}
+		return true
 	}
-	return true;
-}
+
+	// Поиск одинаковых цифр в рядах
+	function findSameNums(row){
+		for(let i = 0; i < row.length; i++){
+
+			if( row.indexOf(row[i], i+1) != -1 ) {
+				return false;
+			}
+		}
+		return true;
+	}
+})
