@@ -22,7 +22,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	});
 
 	box.addEventListener('contextmenu', function(e){
-		if ( e.target.tagName == 'INPUT' && !e.target.disabled ) {
+		if ( e.target.tagName == 'INPUT' && !e.target.disabled && e.target.value) {
 			e.preventDefault();
 			
 			if ( !e.target.classList.contains('mark') ) {
@@ -48,7 +48,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 		if ( !valid ) return;
 
-		if ( checkQuad() && checkGorRow() && checkVerRow() ){
+		else if ( checkQuad() && checkGorRow() && checkVerRow() ){
 			showAlert('ВЫ ОБОССАЛИ ЭТУ ИГРУ!', 'successful');
 
 		} else showAlert('К сожалению, судоку решено неверно');
