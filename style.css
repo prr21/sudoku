@@ -36,14 +36,19 @@ div[class^="row"]{
 	text-align: center;
 }
 
+.mark {
+	border: 2px solid #789fa5;
+	background-color: #95e1ecb0;
+}
+
 .error {
-	border: 2px solid #de5757;
-	background-color: #f58b8b;
+	border: 2px solid #d259596e;
+	background-color: #ea8f8f91;
 }
 
 .successful {
 	border: 2px solid #5bad77;
-	background-color: #8fe4ac;	
+	background-color: #8fe4ac;
 }
 
 @keyframes animationShow{
