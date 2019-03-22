@@ -9,16 +9,26 @@ window.addEventListener('DOMContentLoaded', () => {
 		infoTab = document.getElementsByClassName('alert')[0];
 
 	box.addEventListener('keyup', function(e){
-
 		if (e.target.tagName == 'INPUT') {
 
 			if ( !validNums(e.target) ) {
 				return false;
 
 			} else {
-				e.target.classList.remove('error');
+				e.target.classList.remove('error', 'mark');
 				infoTab.style.opacity = '0';
 			}
+		}
+	});
+
+	box.addEventListener('contextmenu', function(e){
+		if ( e.target.tagName == 'INPUT' && !e.target.disabled ) {
+			e.preventDefault();
+			
+			if ( !e.target.classList.contains('mark') ) {
+				e.target.classList.add('mark')
+
+			} else e.target.classList.remove('mark');
 		}
 	});
 
@@ -29,12 +39,16 @@ window.addEventListener('DOMContentLoaded', () => {
 	}
 
 	check.onclick = function() {
-		let cells = document.querySelectorAll('.cell');
+		let cells = document.querySelectorAll('.cell'),
+			valid = true;
 
-		if ( !cells.forEach((elem) => validNums(elem)) ) {
-			return
+		cells.forEach((elem) => {
+			if ( validNums(elem) == false )	valid = false;
+		})
 
-		} else if( checkQuad() && checkGorRow() && checkVerRow() ){
+		if ( !valid ) return;
+
+		if ( checkQuad() && checkGorRow() && checkVerRow() ){
 			showAlert('ВЫ ОБОССАЛИ ЭТУ ИГРУ!', 'successful');
 
 		} else showAlert('К сожалению, судоку решено неверно');
@@ -74,6 +88,7 @@ window.addEventListener('DOMContentLoaded', () => {
 				row = [];
 			}
 		}
+		return true
 	}
 
 	// Проверка горизонтальных рядов
