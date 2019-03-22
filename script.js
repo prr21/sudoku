@@ -31,9 +31,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	check.onclick = function() {
 		let cells = document.querySelectorAll('.cell');
 
-		
-
-		if ( !cells.forEach((num) => validNums(num)) ) {
+		if ( !cells.forEach((elem) => validNums(elem)) ) {
 			return
 
 		} else if( checkQuad() && checkGorRow() && checkVerRow() ){
@@ -43,16 +41,21 @@ window.addEventListener('DOMContentLoaded', () => {
 	}
 
 	// Проверка правильности внесеннох значений
-	const validNums = function(num){
+	const validNums = function(elem){
 
-		if (+num.value > size) {
-			num.classList.add('error');
-			showAlert('Заполните поле от 1 до ' + size);
+		if (elem.value == ''){
+			elem.classList.add('error');
+			showAlert('Заполните ячейки');
 			return false;
 
-		} else if ( !numRegEx.test(+num.value) ) {
-			num.classList.add('error');
-			showAlert('Вводите только русские буквы');
+		} else if (+elem.value > size) {
+			elem.classList.add('error');
+			showAlert('Заполняйте поля цифрами от 1 до ' + size);
+			return false;
+
+		} else if ( !numRegEx.test(+elem.value) ) {
+			elem.classList.add('error');
+			showAlert('Вводите только числа');
 			return false;
 		}
 		return true
