@@ -8,14 +8,12 @@ window.addEventListener('DOMContentLoaded', () => {
 		check = document.getElementById('check'),
 		infoTab = document.getElementsByClassName('alert')[0];
 
-	box.addEventListener('keypress', function(e){
+	box.addEventListener('keyup', function(e){
 
 		if (e.target.tagName == 'INPUT') {
 
-			if (!numRegEx.test(+e.key)) {
-				showAlert('Вводите только цифры, от 1 до ' + size);
-				check.attributes;
-				e.target.classList.add('error');
+			if ( !validNums(e.target) ) {
+				return false;
 
 			} else {
 				e.target.classList.remove('error');
@@ -31,14 +29,33 @@ window.addEventListener('DOMContentLoaded', () => {
 	}
 
 	check.onclick = function() {
+		let cells = document.querySelectorAll('.cell');
 
-		// if ( !validNums() ) return;
+		
 
-		if( /*checkQuad() && checkGorRow() && */ checkVerRow() ){
+		if ( !cells.forEach((num) => validNums(num)) ) {
+			return
+
+		} else if( checkQuad() && checkGorRow() && checkVerRow() ){
 			showAlert('ВЫ ОБОССАЛИ ЭТУ ИГРУ!', 'successful');
 
 		} else showAlert('К сожалению, судоку решено неверно');
+	}
 
+	// Проверка правильности внесеннох значений
+	const validNums = function(num){
+
+		if (+num.value > size) {
+			num.classList.add('error');
+			showAlert('Заполните поле от 1 до ' + size);
+			return false;
+
+		} else if ( !numRegEx.test(+num.value) ) {
+			num.classList.add('error');
+			showAlert('Вводите только русские буквы');
+			return false;
+		}
+		return true
 	}
 
 	// Проверка чисел в каждом квадрате
@@ -86,20 +103,20 @@ window.addEventListener('DOMContentLoaded', () => {
 				nextCell %= quads.length - 1;
 				curCell = nextCell;
 			}
-			let numCell = curCell;
+			let cell = curCell;
 
 			for(let j = 0; j <= quads.length; j++){
 				let cells = quads[curQuad].querySelectorAll('.cell');
 
-				if( numCell >= cells.length ) {
-					curQuad += amountRows; numCell = curCell;
+				if( cell >= cells.length ) {
+					curQuad += amountRows; cell = curCell;
 
 					if( curQuad >= quads.length ) {
 						break;}
 					cells = quads[curQuad].querySelectorAll('.cell');
 				}
-				row.push( +cells[numCell].value );
-				numCell += amountRows;
+				row.push( +cells[cell].value );
+				cell += amountRows;
 
 			}
 			if ( !findSameNums(row) ) return false;
@@ -120,23 +137,5 @@ window.addEventListener('DOMContentLoaded', () => {
 			}
 		}
 		return true;
-	}
-
-	function validNums(){
-		let cells = document.querySelectorAll('.cell'),
-			errors = '';
-
-		cells.forEach( (num, i) => {
-
-			if ( !numRegEx.test( +num.value) || +num.value > size ) {
-
-				cells[i].classList.add('error');
-				errors = 'Заполните все поля от 1 до ' + size;
-				return;
-			}
-		});
-		// не будет выводит тру
-		showAlert(errors)
-		return false
 	}
 })
